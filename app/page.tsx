@@ -128,17 +128,31 @@ interface MetricCardProps {
   value: number
   icon: string
   color: 'blue' | 'green' | 'red' | 'purple' | 'pink' | 'indigo'
-}
-
 function MetricCard({ title, value, icon, color }: MetricCardProps) {
   const colorClasses = {
-    blue: 'bg-blue-500',
-    green: 'bg-green-500',
-    red: 'bg-red-500',
-    purple: 'bg-purple-500',
-    pink: 'bg-pink-500',
-    indigo: 'bg-indigo-500',
+    blue: 'bg-blue-600 text-white',
+    green: 'bg-green-600 text-white',
+    red: 'bg-red-600 text-white',
+    purple: 'bg-purple-600 text-white',
+    pink: 'bg-pink-600 text-white',
+    indigo: 'bg-indigo-600 text-white',
   }
+
+  return (
+    <div className="bg-white rounded-xl shadow-xl p-6 border-2 border-gray-200 hover:shadow-2xl transition-shadow">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-gray-700 text-sm font-semibold uppercase tracking-wide">{title}</p>
+          <p className="text-5xl font-extrabold mt-3 text-gray-900">{value}</p>
+        </div>
+        <div className={`${colorClasses[color]} rounded-2xl p-5 text-5xl shadow-lg`}>
+          {icon}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
