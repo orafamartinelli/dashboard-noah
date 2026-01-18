@@ -128,6 +128,8 @@ interface MetricCardProps {
   value: number
   icon: string
   color: 'blue' | 'green' | 'red' | 'purple' | 'pink' | 'indigo'
+}
+
 function MetricCard({ title, value, icon, color }: MetricCardProps) {
   const colorClasses = {
     blue: 'bg-blue-600 text-white',
@@ -146,22 +148,6 @@ function MetricCard({ title, value, icon, color }: MetricCardProps) {
           <p className="text-5xl font-extrabold mt-3 text-gray-900">{value}</p>
         </div>
         <div className={`${colorClasses[color]} rounded-2xl p-5 text-5xl shadow-lg`}>
-          {icon}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-
-  return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-gray-600 text-sm font-medium">{title}</p>
-          <p className="text-4xl font-bold mt-2">{value}</p>
-        </div>
-        <div className={`${colorClasses[color]} rounded-full p-4 text-4xl`}>
           {icon}
         </div>
       </div>
