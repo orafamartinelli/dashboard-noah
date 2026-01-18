@@ -59,11 +59,11 @@ export default function Dashboard() {
     
     const metricsData: Metrics = {
       total: data.length,
-      casamentos: data.filter(l => l.tipo_evento === 'Casamento').length,
-      aniversarios: data.filter(l => l.tipo_evento === 'Aniversário').length,
-      formaturas: data.filter(l => l.tipo_evento === 'Formatura').length,
-      fechados: data.filter(l => l.status === 'Fechado').length,
-      perdidos: data.filter(l => l.status?.includes('Perdido')).length,
+      casamentos: data.filter((l: any) => l.tipo_evento === 'Casamento').length,
+      aniversarios: data.filter((l: any) => l.tipo_evento === 'Aniversário').length,
+      formaturas: data.filter((l: any) => l.tipo_evento === 'Formatura').length,
+      fechados: data.filter((l: any) => l.status === 'Fechado').length,
+      perdidos: data.filter((l: any) => l.status?.includes('Perdido')).length,
     }
     
     setMetrics(metricsData)
@@ -106,47 +106,17 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <MetricCard 
-          title="Total de Atendimentos" 
-          value={metrics.total}
-          icon="📊"
-          color="blue"
-        />
-        <MetricCard 
-          title="Fechados" 
-          value={metrics.fechados}
-          icon="✅"
-          color="green"
-        />
-        <MetricCard 
-          title="Perdidos" 
-          value={metrics.perdidos}
-          icon="❌"
-          color="red"
-        />
+        <MetricCard title="Total de Atendimentos" value={metrics.total} icon="📊" color="blue" />
+        <MetricCard title="Fechados" value={metrics.fechados} icon="✅" color="green" />
+        <MetricCard title="Perdidos" value={metrics.perdidos} icon="❌" color="red" />
       </div>
 
       <div>
         <h2 className="text-2xl font-bold mb-4">Por Tipo de Evento</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <MetricCard 
-            title="Casamentos" 
-            value={metrics.casamentos}
-            icon="💍"
-            color="purple"
-          />
-          <MetricCard 
-            title="Aniversários" 
-            value={metrics.aniversarios}
-            icon="🎂"
-            color="pink"
-          />
-          <MetricCard 
-            title="Formaturas" 
-            value={metrics.formaturas}
-            icon="🎓"
-            color="indigo"
-          />
+          <MetricCard title="Casamentos" value={metrics.casamentos} icon="💍" color="purple" />
+          <MetricCard title="Aniversários" value={metrics.aniversarios} icon="🎂" color="pink" />
+          <MetricCard title="Formaturas" value={metrics.formaturas} icon="🎓" color="indigo" />
         </div>
       </div>
     </div>
@@ -172,4 +142,15 @@ function MetricCard({ title, value, icon, color }: MetricCardProps) {
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
-      <div className="flex i
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-gray-600 text-sm font-medium">{title}</p>
+          <p className="text-4xl font-bold mt-2">{value}</p>
+        </div>
+        <div className={`${colorClasses[color]} rounded-full p-4 text-4xl`}>
+          {icon}
+        </div>
+      </div>
+    </div>
+  )
+}
