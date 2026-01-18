@@ -3,8 +3,17 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 
+interface Metrics {
+  total: number
+  casamentos: number
+  aniversarios: number
+  formaturas: number
+  fechados: number
+  perdidos: number
+}
+
 export default function Dashboard() {
-  const [metrics, setMetrics] = useState(null)
+  const [metrics, setMetrics] = useState<Metrics | null>(null)
   const [loading, setLoading] = useState(true)
   const [periodo, setPeriodo] = useState('mes_atual')
 
@@ -48,7 +57,7 @@ export default function Dashboard() {
       return
     }
     
-    const metricsData = {
+    const metricsData: Metrics = {
       total: data.length,
       casamentos: data.filter(l => l.tipo_evento === 'Casamento').length,
       aniversarios: data.filter(l => l.tipo_evento === 'Aniversário').length,
@@ -65,6 +74,14 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-2xl">Carregando...</div>
+      </div>
+    )
+  }
+
+  if (!metrics) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-2xl">Sem dados disponíveis</div>
       </div>
     )
   }
@@ -136,8 +153,15 @@ export default function Dashboard() {
   )
 }
 
-function MetricCard({ title, value, icon, color }: any) {
-  const colorClasses: any = {
+interface MetricCardProps {
+  title: string
+  value: number
+  icon: string
+  color: 'blue' | 'green' | 'red' | 'purple' | 'pink' | 'indigo'
+}
+
+function MetricCard({ title, value, icon, color }: MetricCardProps) {
+  const colorClasses = {
     blue: 'bg-blue-500',
     green: 'bg-green-500',
     red: 'bg-red-500',
@@ -148,15 +172,4 @@ function MetricCard({ title, value, icon, color }: any) {
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-gray-600 text-sm font-medium">{title}</p>
-          <p className="text-4xl font-bold mt-2">{value}</p>
-        </div>
-        <div className={`${colorClasses[color]} rounded-full p-4 text-4xl`}>
-          {icon}
-        </div>
-      </div>
-    </div>
-  )
-}
+      <div className="flex i
